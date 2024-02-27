@@ -1,0 +1,44 @@
+import graphqlDataProvider, {
+  liveProvider as graphqlLiveProvider,
+  GraphQLClient,
+} from "@refinedev/nestjs-query";
+import { fetchWrapper } from "./fetch-wrapper";
+import { createClient } from "graphql-ws";
+
+export const API_BASE_URL = "https://api.crm.refine.dev";
+export const API_URL = `${API_BASE_URL}/graphql`;
+export const WS_URL = "wss://api.crm.refine.dev/grpahql";
+
+export const client = new GraphQLClient(API_URL, {
+  fetch: (url: string, options: RequestInit) => {
+    try {
+      return fetchWrapper(url, options);
+    } catch (error) {
+      return Promise.reject(error as Error);
+    }
+  },
+});
+
+export const wsClient =
+  typeof window !== "undefined"
+    ? createClient({
+        url: WS_URL,
+        connectionParams: () => {
+          const accessToken = localStorage.getItem("access_token");
+
+          return {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          };
+        },
+      })
+    : undefined;
+
+export const dataProvider = graphqlDataProvider(client);
+export const liveProvider = wsClient
+  ? graphqlLiveProvider(wsClient)
+  : undefined;
+
+//Data Provider: service or component that provides data. This could be a database, an API, a file system, etc
+//Live Provider: service or component that provides real-time data. For example, in a live streaming application
