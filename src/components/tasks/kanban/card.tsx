@@ -128,7 +128,7 @@ const ProjectCard = ({ id, title, dueDate, users }: ProjectCardProps) => {
         <div
           style={{
             display: "flex",
-            flexWrap: "warp",
+            flexWrap: "wrap",
             alignItems: "center",
             gap: "8px",
           }}
