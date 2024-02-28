@@ -25,7 +25,7 @@ const List = ({ children }: React.PropsWithChildren) => {
       {
         field: "title",
         operator: "in",
-        value: ["TODO", "IN_PROGRESS", "IN_REVIEW", "DONE"],
+        value: ["TODO", "IN PROGRESS", "IN REVIEW", "DONE"],
       },
     ],
     sorters: [
@@ -81,7 +81,7 @@ const List = ({ children }: React.PropsWithChildren) => {
       columns: grouped,
     };
   }, [stages, tasks]);
-
+  console.log(stages);
   const handleAddCard = (args: { stageId: string }) => {
     const path =
       args.stageId === "unassigned"
@@ -115,6 +115,7 @@ const List = ({ children }: React.PropsWithChildren) => {
   const isLoading = isLoadingStages || isLoadingTasks;
 
   if (isLoading) return <PageSkeleton />;
+
   return (
     <>
       <KanbanBoardContainer>
