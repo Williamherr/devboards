@@ -35,7 +35,7 @@ const getGraphQLErrors = (
   if ("errors" in body) {
     const errors = body?.errors;
     const messages = errors?.map((e) => e?.message)?.join("");
-    const code = errors?.[0]?.extensions?.code;
+    const code: any = errors?.[0]?.extensions?.code;
 
     return {
       message: messages || JSON.stringify(errors),
