@@ -26,6 +26,9 @@ import {
 import "@refinedev/antd/dist/reset.css";
 import Layout from "./components/layout";
 import { resources } from "./config/resources";
+import List from "./pages/tasks/list";
+import TasksCreatePage from "./pages/tasks/create";
+import TasksEditPage from "./pages/tasks/edit";
 
 const App = () => {
   return (
@@ -68,6 +71,17 @@ const App = () => {
                     <Route index element={<CompanyList />} />
                     <Route path="new" element={<Create />} />
                     <Route path="edit/:id" element={<Edit />} />
+                  </Route>
+                  <Route
+                    path="/tasks"
+                    element={
+                      <List>
+                        <Outlet />
+                      </List>
+                    }
+                  >
+                    <Route path="new" element={<TasksCreatePage />} />
+                    <Route path="edit/:id" element={<TasksEditPage />} />
                   </Route>
                 </Route>
               </Routes>
